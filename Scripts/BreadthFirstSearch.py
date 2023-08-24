@@ -1,27 +1,14 @@
-def DF_Search(graph: dict, src: int or str, trg: int or str, visited: set) -> bool:
-    '''
-
-    :param visited:
-    :param adj_list: list of edges for each node
-    :param src: source node
-    :param trg: target node
-    :return:
-    '''
-
-    print("src: ", src)
-    if src == trg:
-        return True
-    if src in visited:
-        return False
-
+def BF_search(graph, src, trg, visited: set):
+    queue = [src]
     visited.add(src)
-    for node in graph[src]:
-        # visited.append(node)
-        if DF_Search(graph, node, trg, visited):
+    while queue:
+        current = queue.pop()
+        if current == trg:
             return True
+        for node in graph[current]:
+            if node not in visited:
+                queue.insert(node, 0)
     return False
-
-
 
 def make_undirected_graph(edge_list):
     graph = {}
@@ -48,5 +35,5 @@ edges = [[1, 2],
          [4, 5]]
 graph = make_undirected_graph(edges)
 
-isconnected = DF_Search(graph, 1, 6, set())
+isconnected = BF_search(graph, 1, 6, set())
 print("path exists from 1 to 6: ", isconnected)
