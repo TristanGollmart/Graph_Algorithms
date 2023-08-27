@@ -44,7 +44,7 @@ edges = [[1, 2],
          [3, 5],
          [6, 7],
          [4, 5],
-         [8, 9]]
+         [8, 8]]
 graph = make_undirected_graph(edges)
 
 num_nodes = largest_component(graph)
