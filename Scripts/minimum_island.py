@@ -10,10 +10,10 @@ def smallest_components(grid: list)-> int:
     cnter = 0
     for c in range(np.shape(grid)[1]):
         for r in range(np.shape(grid)[0]):
-            if grid[(r, c)]:
-                island_size = explore_size(grid, r, c, visited, 0)
-                if island_size < min_size and island_size != 0:
-                    min_size = island_size
+            island_size = explore_size(grid, r, c, visited, 0)
+            if island_size < min_size and island_size != 0:
+                min_size = island_size
+                print(f"update: new min size is {min_size}")
     return min_size
 
 def explore_size(grid, r, c, visited, num_nodes):
@@ -27,6 +27,9 @@ def explore_size(grid, r, c, visited, num_nodes):
     '''
     if (r, c) in visited:
         return num_nodes
+    if not grid[(r, c)]:
+        return num_nodes
+
     visited.add((r, c))
     num_nodes += 1
 
@@ -37,8 +40,7 @@ def explore_size(grid, r, c, visited, num_nodes):
     if c < np.shape(grid)[1]-1: neighbours.append((r, c+1))
 
     for neighbor in neighbours:
-        if grid[neighbor]:
-            num_nodes = explore_size(grid, *neighbor, visited, num_nodes)
+        num_nodes = explore_size(grid, *neighbor, visited, num_nodes)
 
     return num_nodes
 
